@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jason Kishore — Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141311;
+    --card:#17130f;
+    --sage:#8ba88f;
+    --paper:#f3efe6;
+    --muted:#a9a49a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    font-family:'Inter',sans-serif;
+    padding:48px 32px 80px;
+  }
+  .wrap{max-width:1440px;margin:0 auto;}
+  .eyebrow{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:#6b6558;font-weight:600;margin:0 0 10px;
+  }
+  header.hero{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:24px;margin-bottom:44px;flex-wrap:wrap;
+  }
+  h1.hed{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(38px,5vw,58px);line-height:.98;
+    color:var(--ink);margin:0;
+  }
+  .hero-sub{
+    font-size:15px;color:#6b6558;max-width:340px;
+    line-height:1.5;margin-top:14px;
+  }
+  .role-tag{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    background:#fff;color:var(--ink);padding:18px 26px;border-radius:16px;
+    box-shadow:0 14px 34px rgba(20,19,17,0.14);
+    font-size:19px;line-height:1.25;
+  }
+
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;}
+  .col{display:flex;flex-direction:column;gap:16px;}
+
+  .card{border-radius:20px;overflow:hidden;position:relative;background:var(--card);}
+  .card img{width:100%;display:block;object-fit:cover;}
+
+  .photo{position:relative;color:#fff;}
+  .photo .badge{
+    position:absolute;top:16px;left:16px;background:rgba(15,14,12,0.72);
+    backdrop-filter:blur(6px);color:#fff;font-size:12.5px;font-weight:600;
+    padding:7px 13px;border-radius:100px;z-index:3;
+  }
+  .photo .caption{position:absolute;left:20px;right:20px;bottom:20px;z-index:3;}
+  .photo .caption h3{font-family:'Fraunces',serif;font-weight:500;font-size:24px;line-height:1.1;margin:0;}
+  .photo .caption p{font-size:12.5px;color:rgba(243,239,230,0.8);margin:6px 0 0;line-height:1.4;}
+  .photo::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.75) 100%);
+    z-index:1;
+  }
+
+  /* slot = "swap this" placeholder, matches the sketch's white callouts */
+  .slot{
+    position:absolute;z-index:2;background:#fff;color:var(--ink);
+    border-radius:12px;padding:16px 18px;
+    box-shadow:0 12px 28px rgba(0,0,0,0.28);
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    line-height:1.22;
+  }
+  .slot .fname{
+    display:block;font-family:'JetBrains Mono',monospace;font-style:normal;
+    font-weight:500;font-size:11px;color:#8f887a;margin-top:6px;letter-spacing:.01em;
+  }
+  .slot.upload{
+    border:1.5px dashed #cfc8b8;box-shadow:none;
+    display:flex;align-items:center;gap:10px;
+  }
+  .slot.upload svg{flex:none;width:18px;height:18px;color:#8f887a;}
+
+  .plain-photo{aspect-ratio:4/4.55;}
+  .plain-photo img{height:100%;}
+
+  .social-row{display:flex;gap:12px;}
+  .social-row a{
+    flex:1;aspect-ratio:1/0.62;background:var(--card);border-radius:16px;
+    display:flex;align-items:center;justify-content:center;color:var(--paper);
+    text-decoration:none;transition:transform .18s ease, background .18s ease;
+  }
+  .social-row a:hover{background:#241f18;transform:translateY(-2px);}
+  .social-row svg{width:18px;height:18px;}
+
+  .stat{background:var(--card);color:var(--paper);padding:26px 24px 28px;border-radius:20px;}
+  .stat .stars{display:flex;gap:4px;margin-bottom:20px;}
+  .stat .stars svg{width:18px;height:18px;color:#e8c46b;}
+  .stat h4{font-family:'Fraunces',serif;font-weight:500;font-size:22px;margin:0 0 8px;}
+  .stat p{margin:0 0 16px;font-size:14px;line-height:1.5;color:var(--muted);}
+  .stat a{color:var(--paper);font-size:13.5px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--paper);padding-bottom:3px;}
+
+  .split-card{background:var(--card);}
+  .split-card .body{padding:22px 22px 24px;color:var(--paper);}
+  .split-card .body h3{font-family:'Fraunces',serif;font-weight:500;font-size:25px;line-height:1.1;margin:0 0 10px;}
+  .split-card .body .tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .split-card .body .tags span{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#c9c3b6;
+    border:1px solid rgba(243,239,230,0.22);padding:4px 9px;border-radius:100px;
+  }
+
+  .video-card{aspect-ratio:4/3.55;background:#0f0d0b;}
+  .video-card img{height:100%;opacity:.85;}
+  .video-card .play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:60px;height:60px;border-radius:50%;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.35);cursor:pointer;z-index:3;
+  }
+  .video-card .play::before{
+    content:"";border-style:solid;border-width:9px 0 9px 15px;
+    border-color:transparent transparent transparent var(--ink);margin-left:3px;
+  }
+  .video-card .label{
+    position:absolute;left:18px;bottom:16px;z-index:3;color:#fff;
+    font-size:13px;font-weight:600;
+  }
+  .video-card .label span{display:block;font-weight:400;font-size:11.5px;color:#cfc9bc;margin-top:3px;}
+  .video-card::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.75) 100%);z-index:1;
+  }
+
+  .recruit{background:var(--ink);color:var(--paper);padding:26px 24px 24px;border-radius:20px;}
+  .recruit h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.28;margin:0 0 16px;}
+  .recruit p{font-size:13.5px;line-height:1.55;color:#c9c3b6;margin:0 0 22px;}
+  .recruit .stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px;}
+  .recruit .stack span{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#e8e4d8;
+    border:1px solid rgba(243,239,230,0.22);padding:4px 9px;border-radius:100px;
+  }
+  .recruit .cta{color:var(--paper);font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--paper);padding-bottom:4px;}
+
+  .star-mark{position:absolute;top:18px;left:18px;z-index:3;color:#fff;width:26px;height:26px;}
+
+  @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){
+    .grid{grid-template-columns:1fr;}
+    body{padding:32px 18px 60px;}
+    header.hero{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Portfolio</p>
+      <h1 class="hed">Jason<br>Kishore</h1>
+      <p class="hero-sub">AI/ML Engineer building agentic apps, generative tools, and interactive 3D experiences.</p>
+    </div>
+    <div class="role-tag">Jason Kishore<br>Portfolio</div>
+  </header>
+
+  <div class="grid">
+
+    <!-- Column 1 -->
+    <div class="col">
+      <div class="card plain-photo" style="position:relative;">
+        <img src="https://picsum.photos/seed/dark-workspace-04/700/800" alt="Workspace background">
+        <div class="slot" style="top:38%;left:8%;right:12%;">
+          Professional Summary
+          <span class="fname" style="font-style:normal;">
+            MSc AI & ML (Distinction), QMUL. I design and ship end-to-end ML systems —
+            from PyTorch models to deployed agentic and RAG applications.
+          </span>
+        </div>
+      </div>
+
+      <div class="social-row">
+        <a href="#" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.75h3.48V21H3.4V8.75Zm6.02 0h3.34v1.68h.05c.47-.87 1.6-1.79 3.3-1.79 3.53 0 4.18 2.32 4.18 5.34V21h-3.48v-5.42c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21H9.42V8.75Z"/></svg>
+        </a>
+        <a href="#" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2 .4v.3l8 5.6 8-5.6v-.3H4Zm16 2.5-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4Z"/></svg>
+        </a>
+      </div>
+
+      <div class="card photo" style="aspect-ratio:4/4.85;">
+        <span class="badge">Live Project</span>
+        <img src="https://picsum.photos/seed/blue-swirl-tech/700/840" alt="Abstract background for Hans Music project card">
+        <div class="slot upload" style="top:34%;left:9%;right:14%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <div>My App<br><span class="fname">hans_music.html</span></div>
+        </div>
+        <div class="caption">
+          <h3>Hans Music</h3>
+          <p>Text‑to‑music app pairing a Hugging Face Gradio Space with a Three.js generative visualizer — single HTML file, no build step.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="col">
+      <div class="card" style="background:#7f9c86;aspect-ratio:4/4.3;position:relative;">
+        <span class="badge">AI/ML Engineer</span>
+        <div class="slot upload" style="top:32%;left:14%;right:14%;bottom:20%;flex-direction:column;text-align:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:22px;height:22px;"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <div>Your Photo<br><span class="fname">my_photo.jpg</span></div>
+        </div>
+      </div>
+
+      <div class="card split-card">
+        <div class="body">
+          <h3>AI / ML<br>Engineer</h3>
+          <div class="tags">
+            <span>PyTorch</span><span>TensorFlow</span><span>Docker</span>
+            <span>FastAPI</span><span>MLflow</span><span>OpenCV</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+        </div>
+        <h4>Enjoying this?</h4>
+        <p>Quick feedback helps me keep tuning the portfolio.</p>
+        <a href="#">Rate my Portfolio →</a>
+      </div>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="col">
+      <div class="card video-card">
+        <img src="https://picsum.photos/seed/city-night-render/700/620" alt="Agent Roxer demo thumbnail">
+        <div class="play"></div>
+        <div class="label">Agent Roxer<span>Interactive 3D city sim, built in Three.js — single HTML file</span></div>
+      </div>
+
+      <div class="card photo" style="aspect-ratio:4/4.95;">
+        <span class="badge">Education</span>
+        <img src="https://picsum.photos/seed/navy-abstract-02/700/840" alt="Background for education card">
+        <div class="slot upload" style="top:30%;left:10%;right:16%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <div>Degree<br><span class="fname">certificate.jpg</span></div>
+        </div>
+        <div class="caption">
+          <h3>MSc AI &amp; Machine Learning</h3>
+          <p>Queen Mary University of London — Distinction</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 4 -->
+    <div class="col">
+      <div class="recruit">
+        <h3>Personal Statement</h3>
+        <p>I care about tools that feel alive — agentic systems that reason, and interfaces people actually enjoy touching. Always shipping, always iterating.</p>
+        <div class="stack">
+          <span>RAG</span><span>Agentic AI</span><span>Three.js</span><span>Hugging Face</span>
+        </div>
+        <a class="cta" href="#">Get in Touch</a>
+      </div>
+
+      <div class="card plain-photo" style="aspect-ratio:4/4.65;">
+        <svg class="star-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/>
+        </svg>
+        <img src="https://picsum.photos/seed/hollywood-hills-warm/700/820" alt="Hillside background for AI Projects card">
+        <div class="slot" style="bottom:12%;left:8%;right:14%;top:auto;">
+          AI Projects
+          <span class="fname">Agent Roxer · Hans Music · Mullang</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
