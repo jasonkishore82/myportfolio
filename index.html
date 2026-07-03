@@ -2,523 +2,283 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Jason Kishore — Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ACE-Step 1.5 — Music Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg:#0c0c0e;--surface:#141418;--surface2:#1c1c22;--surface3:#24242c;
-    --border:#2a2a34;--border-hl:#3a3a48;
-    --text:#e8e6e3;--text2:#9a9898;--text3:#666;
-    --accent:#c2f04c;--accent-dim:#7a9a20;--accent-glow:rgba(194,240,76,.12);
-    --red:#f04c4c;--red-dim:#9a2020;
-    --radius:10px;--radius-sm:6px;
+    --ink:#141311;
+    --card:#17130f;
+    --sage:#8ba88f;
+    --paper:#f3efe6;
+    --muted:#a9a49a;
   }
-  html{font-size:15px}
+  *{box-sizing:border-box;}
   body{
-    font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
-    min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased;
+    margin:0;
+    background:var(--paper);
+    font-family:'Inter',sans-serif;
+    padding:48px 32px 80px;
   }
-  .app{max-width:860px;margin:0 auto;padding:32px 24px 80px}
-  .header{display:flex;align-items:center;gap:14px;margin-bottom:40px}
-  .logo{
-    width:42px;height:42px;border-radius:10px;
-    background:linear-gradient(135deg,var(--accent),#8bc34a);
-    display:grid;place-items:center;font-weight:600;font-size:18px;color:#0c0c0e;flex-shrink:0;
+  .wrap{max-width:1440px;margin:0 auto;}
+  .eyebrow{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+    color:#6b6558;font-weight:600;margin:0 0 10px;
   }
-  .header h1{font-size:1.35rem;font-weight:500;letter-spacing:-.02em}
-  .header h1 span{color:var(--text3);font-weight:300;margin-left:6px}
-  .conn{
-    display:flex;gap:10px;align-items:center;margin-bottom:32px;
-    padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  header.hero{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:24px;margin-bottom:44px;flex-wrap:wrap;
   }
-  .conn label{font-size:.8rem;color:var(--text2);white-space:nowrap;font-weight:500}
-  .conn input{
-    flex:1;background:var(--surface2);border:1px solid var(--border);color:var(--text);
-    padding:7px 12px;border-radius:var(--radius-sm);font-family:'JetBrains Mono',monospace;
-    font-size:.78rem;outline:none;transition:border-color .2s;
+  h1.hed{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(38px,5vw,58px);line-height:.98;
+    color:var(--ink);margin:0;
   }
-  .conn input:focus{border-color:var(--accent-dim)}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background .3s}
-  .dot.ok{background:var(--accent);box-shadow:0 0 8px rgba(194,240,76,.5)}
-  .dot.err{background:var(--red);box-shadow:0 0 8px rgba(240,76,76,.4)}
-  .tabs{display:flex;gap:2px;margin-bottom:24px;background:var(--surface);border-radius:var(--radius);padding:3px;border:1px solid var(--border)}
-  .tab{
-    flex:1;padding:8px 12px;border:none;background:transparent;color:var(--text3);
-    font-family:inherit;font-size:.82rem;font-weight:500;cursor:pointer;
-    border-radius:calc(var(--radius) - 2px);transition:all .15s;text-align:center;
+  .hero-sub{
+    font-size:15px;color:#6b6558;max-width:340px;
+    line-height:1.5;margin-top:14px;
   }
-  .tab:hover{color:var(--text2)}
-  .tab.active{background:var(--surface3);color:var(--text)}
-  .tab-content{display:none}
-  .tab-content.active{display:block}
-  .section{margin-bottom:20px}
-  .section-label{
-    font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
-    color:var(--text3);margin-bottom:8px;display:flex;align-items:center;gap:8px;
+  .role-tag{
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    background:#fff;color:var(--ink);padding:18px 26px;border-radius:16px;
+    box-shadow:0 14px 34px rgba(20,19,17,0.14);
+    font-size:19px;line-height:1.25;
   }
-  textarea,select,input[type=number],input[type=text]{
-    width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);
-    padding:12px 14px;border-radius:var(--radius);font-family:inherit;font-size:.93rem;
-    outline:none;transition:border-color .2s,box-shadow .2s;resize:vertical;
+
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;}
+  .col{display:flex;flex-direction:column;gap:16px;}
+
+  .card{border-radius:20px;overflow:hidden;position:relative;background:var(--card);}
+
+  /* ===== light gradient palette (replaces all photo/video imagery) ===== */
+  .grad-1{background:linear-gradient(145deg,#fdf3e7 0%,#f6d9c4 45%,#eec2b3 100%);}
+  .grad-2{background:linear-gradient(150deg,#eef2e6 0%,#cfe0cf 50%,#a9c7ad 100%);}
+  .grad-3{background:linear-gradient(155deg,#fbeee6 0%,#f2d6d9 45%,#e3bcd0 100%);}
+  .grad-4{background:linear-gradient(140deg,#eef0f7 0%,#d6dcf0 50%,#b9c6e8 100%);}
+  .grad-5{background:linear-gradient(150deg,#f7f2e3 0%,#ecdcb8 50%,#dcc38f 100%);}
+  .grad-6{background:linear-gradient(145deg,#eaf3f2 0%,#c9e2dd 50%,#a3cdc8 100%);}
+
+  .photo{position:relative;color:var(--ink);}
+  .photo .badge{
+    position:absolute;top:16px;left:16px;background:rgba(255,255,255,0.78);
+    backdrop-filter:blur(6px);color:var(--ink);font-size:12.5px;font-weight:600;
+    padding:7px 13px;border-radius:100px;z-index:3;
   }
-  textarea:focus,select:focus,input[type=number]:focus,input[type=text]:focus{
-    border-color:var(--accent-dim);box-shadow:0 0 0 3px var(--accent-glow);
+  .photo .caption{position:absolute;left:20px;right:20px;bottom:20px;z-index:3;}
+  .photo .caption h3{font-family:'Fraunces',serif;font-weight:500;font-size:24px;line-height:1.1;margin:0;color:var(--ink);}
+  .photo .caption p{font-size:12.5px;color:#4a4640;margin:6px 0 0;line-height:1.4;}
+
+  /* slot = "swap this" placeholder */
+  .slot{
+    position:absolute;z-index:2;background:#fff;color:var(--ink);
+    border-radius:12px;padding:16px 18px;
+    box-shadow:0 12px 28px rgba(20,19,17,0.14);
+    font-family:'Fraunces',serif;font-style:italic;font-weight:600;
+    line-height:1.22;
   }
-  textarea{min-height:80px;line-height:1.6}
-  textarea.lyrics{min-height:160px;font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.7}
-  textarea::placeholder,input::placeholder{color:var(--text3)}
-  .controls{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
-  .controls-3{grid-template-columns:1fr 1fr 1fr}
-  .control-group label{
-    display:block;font-size:.72rem;font-weight:500;color:var(--text2);
-    margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em;
+  .slot .fname{
+    display:block;font-family:'JetBrains Mono',monospace;font-style:normal;
+    font-weight:500;font-size:11px;color:#8f887a;margin-top:6px;letter-spacing:.01em;
   }
-  input[type=number]{padding:9px 12px;font-size:.88rem;font-family:'JetBrains Mono',monospace}
-  input[type=number]::-webkit-inner-spin-button{opacity:.4}
-  select{cursor:pointer;appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239a9898'%3E%3Cpath d='M6 8.5L1 3.5h10z'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;
+  .slot.upload{
+    border:1.5px dashed #cfc8b8;box-shadow:none;background:rgba(255,255,255,0.55);
+    display:flex;align-items:center;gap:10px;
   }
-  .checkbox-row{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
-  .checkbox-row label{
-    display:flex;align-items:center;gap:7px;cursor:pointer;
-    font-size:.85rem;color:var(--text2);user-select:none;
+  .slot.upload svg{flex:none;width:18px;height:18px;color:#8f887a;}
+
+  .plain-photo{aspect-ratio:4/4.55;}
+
+  .social-row{display:flex;gap:12px;}
+  .social-row a{
+    flex:1;aspect-ratio:1/0.62;background:var(--card);border-radius:16px;
+    display:flex;align-items:center;justify-content:center;color:var(--paper);
+    text-decoration:none;transition:transform .18s ease, background .18s ease;
   }
-  .checkbox-row input[type=checkbox]{
-    appearance:none;width:18px;height:18px;border:1.5px solid var(--border-hl);
-    border-radius:4px;background:var(--surface2);cursor:pointer;position:relative;
-    transition:all .15s;flex-shrink:0;
+  .social-row a:hover{background:#241f18;transform:translateY(-2px);}
+  .social-row svg{width:18px;height:18px;}
+
+  .stat{background:var(--card);color:var(--paper);padding:26px 24px 28px;border-radius:20px;}
+  .stat .stars{display:flex;gap:4px;margin-bottom:20px;}
+  .stat .stars svg{width:18px;height:18px;color:#e8c46b;}
+  .stat h4{font-family:'Fraunces',serif;font-weight:500;font-size:22px;margin:0 0 8px;}
+  .stat p{margin:0 0 16px;font-size:14px;line-height:1.5;color:var(--muted);}
+  .stat a{color:var(--paper);font-size:13.5px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--paper);padding-bottom:3px;}
+
+  .split-card{background:var(--card);}
+  .split-card .body{padding:22px 22px 24px;color:var(--paper);}
+  .split-card .body h3{font-family:'Fraunces',serif;font-weight:500;font-size:25px;line-height:1.1;margin:0 0 10px;}
+  .split-card .body .tags{display:flex;flex-wrap:wrap;gap:7px;}
+  .split-card .body .tags span{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#c9c3b6;
+    border:1px solid rgba(243,239,230,0.22);padding:4px 9px;border-radius:100px;
   }
-  .checkbox-row input[type=checkbox]:checked{background:var(--accent);border-color:var(--accent)}
-  .checkbox-row input[type=checkbox]:checked::after{
-    content:'✓';position:absolute;inset:0;display:grid;place-items:center;
-    font-size:12px;font-weight:700;color:#0c0c0e;
+
+  .video-card{aspect-ratio:4/3.55;position:relative;}
+  .video-card .play{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:60px;height:60px;border-radius:50%;background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(20,19,17,0.18);cursor:pointer;z-index:3;
   }
-  .btn-row{display:flex;gap:10px}
-  .gen-btn{
-    flex:1;padding:14px;border:none;border-radius:var(--radius);
-    background:var(--accent);color:#0c0c0e;font-family:inherit;
-    font-size:1rem;font-weight:600;cursor:pointer;letter-spacing:-.01em;
-    transition:all .2s;position:relative;overflow:hidden;
+  .video-card .play::before{
+    content:"";border-style:solid;border-width:9px 0 9px 15px;
+    border-color:transparent transparent transparent var(--ink);margin-left:3px;
   }
-  .gen-btn:hover{background:#d4ff5c;transform:translateY(-1px);box-shadow:0 6px 24px rgba(194,240,76,.25)}
-  .gen-btn:active{transform:translateY(0)}
-  .gen-btn:disabled{background:var(--surface3);color:var(--text3);cursor:not-allowed;transform:none;box-shadow:none}
-  .gen-btn.running{background:var(--surface3);color:var(--text2)}
-  .secondary-btn{
-    padding:10px 18px;border:1px solid var(--border);border-radius:var(--radius);
-    background:transparent;color:var(--text2);font-family:inherit;font-size:.85rem;
-    cursor:pointer;transition:all .15s;white-space:nowrap;
+  .video-card .label{
+    position:absolute;left:18px;bottom:16px;z-index:3;color:var(--ink);
+    font-size:13px;font-weight:600;
   }
-  .secondary-btn:hover{border-color:var(--accent-dim);color:var(--accent)}
-  .status{
-    margin-top:12px;padding:10px 14px;border-radius:var(--radius-sm);
-    font-size:.82rem;font-family:'JetBrains Mono',monospace;
-    background:var(--surface);border:1px solid var(--border);color:var(--text2);
-    display:none;word-break:break-word;
+  .video-card .label span{display:block;font-weight:400;font-size:11.5px;color:#4a4640;margin-top:3px;}
+
+  .recruit{background:var(--ink);color:var(--paper);padding:26px 24px 24px;border-radius:20px;}
+  .recruit h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.28;margin:0 0 16px;}
+  .recruit p{font-size:13.5px;line-height:1.55;color:#c9c3b6;margin:0 0 22px;}
+  .recruit .stack{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:24px;}
+  .recruit .stack span{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#e8e4d8;
+    border:1px solid rgba(243,239,230,0.22);padding:4px 9px;border-radius:100px;
   }
-  .status.visible{display:block}
-  .status.error{border-color:var(--red-dim);color:var(--red)}
-  .status.success{border-color:var(--accent-dim);color:var(--accent)}
-  .results{margin-top:32px;display:none}
-  .results.visible{display:block}
-  .results-header{
-    font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;
-    color:var(--text3);margin-bottom:12px;display:flex;align-items:center;gap:8px;
-  }
-  .results-count{
-    background:var(--accent);color:#0c0c0e;padding:1px 8px;
-    border-radius:10px;font-size:.7rem;font-weight:600;
-  }
-  .audio-card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:16px;margin-bottom:10px;transition:border-color .2s;animation:fadeUp .35s ease-out;
-  }
-  .audio-card:hover{border-color:var(--border-hl)}
-  .audio-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-  .audio-card-title{font-size:.85rem;font-weight:500}
-  .audio-card-meta{font-size:.72rem;color:var(--text3);font-family:'JetBrains Mono',monospace}
-  audio{width:100%;height:40px;border-radius:6px;outline:none}
-  .download-btn{
-    display:inline-flex;align-items:center;gap:5px;margin-top:8px;
-    padding:6px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);
-    background:transparent;color:var(--text2);font-size:.78rem;font-family:inherit;
-    cursor:pointer;transition:all .15s;text-decoration:none;
-  }
-  .download-btn:hover{border-color:var(--accent-dim);color:var(--accent)}
-  .gen-info{
-    margin-top:16px;padding:12px 14px;background:var(--surface);
-    border:1px solid var(--border);border-radius:var(--radius-sm);
-    font-size:.75rem;font-family:'JetBrains Mono',monospace;color:var(--text3);
-    white-space:pre-wrap;line-height:1.6;display:none;
-  }
-  .gen-info.visible{display:block}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .spinner{
-    width:16px;height:16px;border:2px solid var(--text3);border-top-color:transparent;
-    border-radius:50%;animation:spin .7s linear infinite;display:inline-block;
-    vertical-align:middle;margin-right:8px;
-  }
-  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-  @media(max-width:600px){
-    .controls,.controls-3{grid-template-columns:1fr 1fr}
-    .app{padding:20px 16px 60px}
-    .btn-row{flex-direction:column}
+  .recruit .cta{color:var(--paper);font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--paper);padding-bottom:4px;}
+
+  .star-mark{position:absolute;top:18px;left:18px;z-index:3;color:var(--ink);width:26px;height:26px;opacity:.55;}
+
+  @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){
+    .grid{grid-template-columns:1fr;}
+    body{padding:32px 18px 60px;}
+    header.hero{flex-direction:column;align-items:flex-start;}
   }
 </style>
 </head>
 <body>
-<div class="app">
-  <div class="header">
-    <div class="logo">♪</div>
-    <h1>ACE-Step<span>1.5</span></h1>
-  </div>
+<div class="wrap">
 
-  <div class="conn">
-    <div class="dot" id="connDot"></div>
-    <label>API</label>
-    <input type="text" id="apiUrl" value="http://127.0.0.1:8001" placeholder="http://127.0.0.1:8001">
-    <button class="secondary-btn" onclick="checkHealth()" style="padding:7px 14px;font-size:.78rem">Check</button>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" data-tab="simple" onclick="switchTab(this)">Simple Mode</button>
-    <button class="tab" data-tab="custom" onclick="switchTab(this)">Custom Mode</button>
-  </div>
-
-  <!-- ── SIMPLE MODE ── -->
-  <div id="tab-simple" class="tab-content active">
-    <div class="section">
-      <div class="section-label">
-        Describe the music you want
-        <button class="secondary-btn" onclick="loadRandom('simple_mode')" style="padding:3px 10px;font-size:.7rem">🎲 Random</button>
-      </div>
-      <textarea id="simpleQuery" style="min-height:100px" placeholder="Describe what you want in plain language…&#10;e.g. &quot;A soft Bengali love song&quot; or &quot;upbeat electronic dance track with heavy bass&quot;"></textarea>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Portfolio</p>
+      <h1 class="hed">Jason<br>Kishore</h1>
+      <p class="hero-sub">AI/ML Engineer building agentic apps, generative tools, and interactive 3D experiences.</p>
     </div>
-    <div class="section">
-      <div class="controls controls-3">
-        <div class="control-group"><label>Duration (sec)</label><input type="number" id="simpleDuration" value="60" min="10" max="600" step="5"></div>
-        <div class="control-group"><label>Batch Size</label><input type="number" id="simpleBatch" value="2" min="1" max="8"></div>
-        <div class="control-group"><label>Audio Format</label>
-          <select id="simpleFormat"><option value="mp3" selected>MP3</option><option value="wav">WAV</option><option value="flac">FLAC</option></select>
+    <div class="role-tag">Jason Kishore<br>Portfolio</div>
+  </header>
+
+  <div class="grid">
+
+    <!-- Column 1 -->
+    <div class="col">
+      <div class="card plain-photo grad-1" style="position:relative;">
+        <div class="slot" style="top:38%;left:8%;right:12%;">
+          Professional Summary
+          <span class="fname" style="font-style:normal;">
+            MSc AI & ML (Distinction), QMUL. I design and ship end-to-end ML systems —
+            from PyTorch models to deployed agentic and RAG applications.
+          </span>
+        </div>
+      </div>
+
+      <div class="social-row">
+        <a href="#" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.75h3.48V21H3.4V8.75Zm6.02 0h3.34v1.68h.05c.47-.87 1.6-1.79 3.3-1.79 3.53 0 4.18 2.32 4.18 5.34V21h-3.48v-5.42c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21H9.42V8.75Z"/></svg>
+        </a>
+        <a href="#" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2 .4v.3l8 5.6 8-5.6v-.3H4Zm16 2.5-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4Z"/></svg>
+        </a>
+      </div>
+
+      <div class="card photo grad-2" style="aspect-ratio:4/4.85;">
+        <span class="badge">Live Project</span>
+        <div class="slot upload" style="top:34%;left:9%;right:14%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <div>My App<br><span class="fname">hans_music.html</span></div>
+        </div>
+        <div class="caption">
+          <h3>Hans Music</h3>
+          <p>Text‑to‑music app pairing a Hugging Face Gradio Space with a Three.js generative visualizer — single HTML file, no build step.</p>
         </div>
       </div>
     </div>
-    <div class="section"><div class="btn-row">
-      <button class="gen-btn" id="simpleGenBtn" onclick="generateSimple()">Generate Music</button>
-    </div></div>
-  </div>
 
-  <!-- ── CUSTOM MODE ── -->
-  <div id="tab-custom" class="tab-content">
-    <div class="section">
-      <div class="section-label">
-        Music Description (Caption)
-        <button class="secondary-btn" onclick="loadRandom('custom_mode')" style="padding:3px 10px;font-size:.7rem">🎲 Random</button>
+    <!-- Column 2 -->
+    <div class="col">
+      <div class="card grad-3" style="aspect-ratio:4/4.3;position:relative;">
+        <span class="badge">AI/ML Engineer</span>
+        <div class="slot upload" style="top:32%;left:14%;right:14%;bottom:20%;flex-direction:column;text-align:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="width:22px;height:22px;"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <div>Your Photo<br><span class="fname">my_photo.jpg</span></div>
+        </div>
       </div>
-      <textarea id="caption" placeholder="Style tags and description…&#10;e.g. &quot;uplifting indie pop, acoustic guitar, female vocals, warm summer vibes&quot;"></textarea>
+
+      <div class="card split-card">
+        <div class="body">
+          <h3>AI / ML<br>Engineer</h3>
+          <div class="tags">
+            <span>PyTorch</span><span>TensorFlow</span><span>Docker</span>
+            <span>FastAPI</span><span>MLflow</span><span>OpenCV</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 1l2.6 5.9L19 7.6l-4.7 4.3L15.5 19 10 15.6 4.5 19l1.2-7.1L1 7.6l6.4-.7L10 1z"/></svg>
+        </div>
+        <h4>Enjoying this?</h4>
+        <p>Quick feedback helps me keep tuning the portfolio.</p>
+        <a href="#">Rate my Portfolio →</a>
+      </div>
     </div>
-    <div class="section">
-      <div class="section-label">Lyrics</div>
-      <textarea class="lyrics" id="lyrics" placeholder="[Verse 1]&#10;Write your lyrics here...&#10;&#10;[Chorus]&#10;The chorus goes here...&#10;&#10;Leave empty for instrumental, or use [Instrumental]"></textarea>
+
+    <!-- Column 3 -->
+    <div class="col">
+      <div class="card video-card grad-4">
+        <div class="play"></div>
+        <div class="label">Agent Roxer<span>Interactive 3D city sim, built in Three.js — single HTML file</span></div>
+      </div>
+
+      <div class="card photo grad-5" style="aspect-ratio:4/4.95;">
+        <span class="badge">Education</span>
+        <div class="slot upload" style="top:30%;left:10%;right:16%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          <div>Degree<br><span class="fname">certificate.jpg</span></div>
+        </div>
+        <div class="caption">
+          <h3>MSc AI &amp; Machine Learning</h3>
+          <p>Queen Mary University of London — Distinction</p>
+        </div>
+      </div>
     </div>
-    <div class="section"><div class="controls">
-      <div class="control-group"><label>Duration (sec)</label><input type="number" id="duration" value="60" min="10" max="600" step="5"></div>
-      <div class="control-group"><label>BPM</label><input type="number" id="bpm" value="" min="40" max="240" placeholder="auto"></div>
-      <div class="control-group"><label>Seed</label><input type="number" id="seed" value="-1" min="-1"></div>
-      <div class="control-group"><label>Batch Size</label><input type="number" id="batchSize" value="2" min="1" max="8"></div>
-    </div></div>
-    <div class="section"><div class="controls">
-      <div class="control-group"><label>Infer Steps</label><input type="number" id="inferSteps" value="8" min="1" max="200"></div>
-      <div class="control-group"><label>Guidance Scale</label><input type="number" id="guidanceScale" value="7.0" min="0" max="30" step="0.5"></div>
-      <div class="control-group"><label>Audio Format</label>
-        <select id="audioFormat"><option value="mp3" selected>MP3</option><option value="wav">WAV</option><option value="flac">FLAC</option></select>
-      </div>
-      <div class="control-group"><label>Task Type</label>
-        <select id="taskType"><option value="text2music" selected>Text → Music</option><option value="cover">Cover</option><option value="repaint">Repaint</option><option value="lego">Lego</option><option value="extract">Extract</option><option value="complete">Complete</option></select>
-      </div>
-    </div></div>
-    <div class="section"><div class="controls controls-3">
-      <div class="control-group"><label>Vocal Language</label>
-        <select id="vocalLang"><option value="en" selected>English</option><option value="zh">Chinese</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="es">Spanish</option><option value="fr">French</option><option value="de">German</option><option value="pt">Portuguese</option><option value="ru">Russian</option><option value="unknown">Auto-detect</option></select>
-      </div>
-      <div class="control-group"><label>Key</label><input type="text" id="keyScale" placeholder="e.g. C major" style="padding:9px 12px;font-size:.88rem"></div>
-      <div class="control-group"><label>Time Signature</label><input type="text" id="timeSig" placeholder="e.g. 4/4" style="padding:9px 12px;font-size:.88rem"></div>
-    </div></div>
-    <div class="section"><div class="checkbox-row">
-      <label><input type="checkbox" id="thinking" checked> Thinking (LM)</label>
-      <label><input type="checkbox" id="useFormat"> Format via LLM</label>
-      <label><input type="checkbox" id="cotCaption" checked> CoT Caption</label>
-      <label><input type="checkbox" id="cotLanguage" checked> CoT Language</label>
-    </div></div>
-    <div class="section"><div class="btn-row">
-      <button class="gen-btn" id="customGenBtn" onclick="generateCustom()">Generate Music</button>
-      <button class="secondary-btn" onclick="formatInput()">✨ Format</button>
-    </div></div>
-  </div>
 
-  <div class="status" id="status"></div>
+    <!-- Column 4 -->
+    <div class="col">
+      <div class="recruit">
+        <h3>Personal Statement</h3>
+        <p>I care about tools that feel alive — agentic systems that reason, and interfaces people actually enjoy touching. Always shipping, always iterating.</p>
+        <div class="stack">
+          <span>RAG</span><span>Agentic AI</span><span>Three.js</span><span>Hugging Face</span>
+        </div>
+        <a class="cta" href="#">Get in Touch</a>
+      </div>
 
-  <div class="results" id="results">
-    <div class="results-header">Generated Tracks <span class="results-count" id="resultsCount">0</span></div>
-    <div id="audioList"></div>
-    <div class="gen-info" id="genInfo"></div>
+      <div class="card plain-photo grad-6" style="position:relative;aspect-ratio:4/4.65;">
+        <svg class="star-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/>
+        </svg>
+        <div class="slot" style="bottom:12%;left:8%;right:14%;top:auto;">
+          AI Projects
+          <span class="fname">Agent Roxer · Hans Music · Mullang</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
-
-<script>
-const $ = id => document.getElementById(id);
-const BASE = () => $('apiUrl').value.replace(/\/+$/, '');
-let polling = null;
-
-/* ── Health ── */
-async function checkHealth() {
-  const dot = $('connDot'); dot.className = 'dot';
-  try {
-    const r = await fetch(BASE() + '/health', { signal: AbortSignal.timeout(4000) });
-    if (!r.ok) { dot.className = 'dot err'; return; }
-    const j = await r.json();
-    dot.className = (j.data && j.data.status === 'ok') ? 'dot ok' : 'dot err';
-  } catch { dot.className = 'dot err'; }
-}
-window.addEventListener('load', () => setTimeout(checkHealth, 400));
-
-/* ── Tabs ── */
-function switchTab(el) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  $('tab-' + el.dataset.tab).classList.add('active');
-}
-
-/* ── Status ── */
-function setStatus(msg, type) {
-  const el = $('status');
-  el.textContent = msg;
-  el.className = 'status visible' + (type ? ' ' + type : '');
-}
-function hideStatus() { $('status').className = 'status'; }
-
-/* ── Random Example ── */
-async function loadRandom(sampleType) {
-  try {
-    const r = await fetch(BASE() + '/create_random_sample', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ sample_type: sampleType }),
-    });
-    const j = await r.json();
-    const d = j.data;
-    if (!d) { setStatus('No example data returned', 'error'); return; }
-    if (sampleType === 'simple_mode') {
-      $('simpleQuery').value = d.query || d.description || d.caption || JSON.stringify(d, null, 2);
-    } else {
-      if (d.caption != null) $('caption').value = d.caption;
-      if (d.prompt != null && !d.caption) $('caption').value = d.prompt;
-      if (d.lyrics != null) $('lyrics').value = d.lyrics;
-      if (d.bpm) $('bpm').value = d.bpm;
-      if (d.duration || d.audio_duration) $('duration').value = d.duration || d.audio_duration;
-      if (d.vocal_language) { try { $('vocalLang').value = d.vocal_language; } catch {} }
-      if (d.key_scale || d.keyscale) $('keyScale').value = d.key_scale || d.keyscale;
-      if (d.time_signature || d.timesignature) $('timeSig').value = d.time_signature || d.timesignature;
-    }
-    setStatus('Loaded random example', 'success');
-    setTimeout(hideStatus, 2000);
-  } catch (err) { setStatus('Failed: ' + err.message, 'error'); }
-}
-
-/* ── Format/Enhance ── */
-async function formatInput() {
-  setStatus('Formatting via LLM…');
-  try {
-    const r = await fetch(BASE() + '/format_input', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prompt: $('caption').value,
-        lyrics: $('lyrics').value,
-        param_obj: {
-          bpm: parseInt($('bpm').value) || undefined,
-          duration: parseInt($('duration').value) || undefined,
-          key_scale: $('keyScale').value || undefined,
-          time_signature: $('timeSig').value || undefined,
-          language: $('vocalLang').value || undefined,
-        },
-      }),
-    });
-    const j = await r.json();
-    if (j.code !== 200 || j.error) { setStatus('Format failed: ' + (j.error || 'unknown'), 'error'); return; }
-    const d = j.data;
-    if (d.caption) $('caption').value = d.caption;
-    if (d.lyrics) $('lyrics').value = d.lyrics;
-    if (d.bpm) $('bpm').value = d.bpm;
-    if (d.duration) $('duration').value = d.duration;
-    if (d.key_scale) $('keyScale').value = d.key_scale;
-    if (d.time_signature) $('timeSig').value = d.time_signature;
-    if (d.vocal_language && d.vocal_language !== 'unknown') { try { $('vocalLang').value = d.vocal_language; } catch {} }
-    setStatus('Caption & lyrics enhanced ✓', 'success');
-    setTimeout(hideStatus, 3000);
-  } catch (err) { setStatus('Format error: ' + err.message, 'error'); }
-}
-
-/* ── Generate: Simple ── */
-function generateSimple() {
-  const q = $('simpleQuery').value.trim();
-  if (!q) { setStatus('Please describe the music you want.', 'error'); return; }
-  submitJob({
-    sample_mode: true,
-    sample_query: q,
-    thinking: true,
-    audio_duration: parseInt($('simpleDuration').value) || 60,
-    batch_size: parseInt($('simpleBatch').value) || 2,
-    audio_format: $('simpleFormat').value,
-  }, $('simpleGenBtn'));
-}
-
-/* ── Generate: Custom ── */
-function generateCustom() {
-  const cap = $('caption').value.trim();
-  if (!cap) { setStatus('Please enter a music description.', 'error'); return; }
-  const sv = parseInt($('seed').value), bv = parseInt($('bpm').value);
-  submitJob({
-    prompt: cap,
-    lyrics: $('lyrics').value || '',
-    thinking: $('thinking').checked,
-    use_format: $('useFormat').checked,
-    use_cot_caption: $('cotCaption').checked,
-    use_cot_language: $('cotLanguage').checked,
-    audio_duration: parseInt($('duration').value) || 60,
-    bpm: bv > 0 ? bv : undefined,
-    inference_steps: parseInt($('inferSteps').value) || 8,
-    guidance_scale: parseFloat($('guidanceScale').value) || 7.0,
-    seed: sv >= 0 ? sv : -1,
-    use_random_seed: sv < 0,
-    batch_size: parseInt($('batchSize').value) || 2,
-    audio_format: $('audioFormat').value,
-    task_type: $('taskType').value,
-    vocal_language: $('vocalLang').value,
-    key_scale: $('keyScale').value || '',
-    time_signature: $('timeSig').value || '',
-  }, $('customGenBtn'));
-}
-
-/* ── Submit → Poll → Display ── */
-async function submitJob(body, btn) {
-  btn.disabled = true;
-  btn.className = 'gen-btn running';
-  btn.innerHTML = '<span class="spinner"></span>Submitting…';
-  setStatus('Sending request…');
-
-  // Clean undefined values
-  Object.keys(body).forEach(k => { if (body[k] === undefined) delete body[k]; });
-
-  try {
-    const res = await fetch(BASE() + '/release_task', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) throw new Error('Server ' + res.status + ': ' + (await res.text()).slice(0, 300));
-
-    const j = await res.json();
-    const taskId = j.data && j.data.task_id;
-    if (!taskId) throw new Error('No task_id: ' + JSON.stringify(j).slice(0, 300));
-
-    setStatus('Queued — task ' + taskId.slice(0, 8) + '… (pos ' + (j.data.queue_position || '?') + ')');
-    btn.innerHTML = '<span class="spinner"></span>Generating…';
-    pollForResult(taskId, btn);
-  } catch (err) {
-    setStatus('Error: ' + err.message, 'error');
-    resetBtn(btn);
-  }
-}
-
-function resetBtn(btn) {
-  btn.disabled = false;
-  btn.className = 'gen-btn';
-  btn.textContent = 'Generate Music';
-}
-
-/* ── Poll /query_result ── */
-function pollForResult(taskId, btn) {
-  if (polling) clearInterval(polling);
-  let attempts = 0;
-  polling = setInterval(async () => {
-    attempts++;
-    try {
-      const res = await fetch(BASE() + '/query_result', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ task_id_list: [taskId] }),
-      });
-      if (!res.ok) { if (attempts > 10) { clearInterval(polling); setStatus('Poll failed', 'error'); resetBtn(btn); } return; }
-      const j = await res.json();
-      const items = j.data;
-      if (!items || !items.length) return;
-      const item = items[0];
-      // status: 0=pending/running, 1=success, 2=failed
-      if (item.status === 1) {
-        clearInterval(polling);
-        setStatus('Generation complete!', 'success');
-        displayResults(item);
-        resetBtn(btn);
-      } else if (item.status === 2) {
-        clearInterval(polling);
-        setStatus('Generation failed.', 'error');
-        resetBtn(btn);
-      } else {
-        setStatus('Generating… (' + attempts * 2 + 's)');
-      }
-    } catch {
-      if (attempts > 180) { clearInterval(polling); setStatus('Timed out.', 'error'); resetBtn(btn); }
-    }
-  }, 2000);
-}
-
-/* ── Display ── */
-function displayResults(item) {
-  const container = $('audioList'), wrap = $('results'), infoDiv = $('genInfo');
-  let audios = [];
-  try {
-    const parsed = typeof item.result === 'string' ? JSON.parse(item.result) : item.result;
-    if (Array.isArray(parsed)) audios = parsed;
-  } catch {}
-  if (!audios.length) { setStatus('No audio in result.', 'error'); return; }
-
-  container.innerHTML = '';
-  wrap.className = 'results visible';
-  $('resultsCount').textContent = audios.length;
-
-  const genInfo = audios[0].generation_info || '';
-
-  audios.forEach((a, i) => {
-    const fp = a.file || '';
-    if (!fp) return;
-    const url = fp.startsWith('http') ? fp
-              : fp.startsWith('/') ? BASE() + fp
-              : BASE() + '/v1/audio?path=' + encodeURIComponent(fp);
-
-    const m = a.metas || {};
-    const parts = [];
-    if (m.bpm && m.bpm !== 'N/A') parts.push(m.bpm + ' BPM');
-    if (m.duration && m.duration !== 'N/A') parts.push(m.duration + 's');
-    if (m.keyscale && m.keyscale !== 'N/A') parts.push(m.keyscale);
-
-    const card = document.createElement('div');
-    card.className = 'audio-card';
-    card.innerHTML =
-      '<div class="audio-card-header">' +
-        '<div class="audio-card-title">Track ' + (i+1) + '</div>' +
-        '<div class="audio-card-meta">' + esc(parts.join(' · ')) + '</div>' +
-      '</div>' +
-      '<audio controls preload="auto" src="' + esc(url) + '"></audio>' +
-      '<a class="download-btn" href="' + esc(url) + '" download>↓ Download</a>';
-    container.appendChild(card);
-  });
-
-  if (genInfo) { infoDiv.textContent = genInfo; infoDiv.className = 'gen-info visible'; }
-  else { infoDiv.className = 'gen-info'; }
-}
-
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-</script>
 </body>
 </html>
