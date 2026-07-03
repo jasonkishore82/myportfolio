@@ -89,14 +89,15 @@
 
   .plain-photo{aspect-ratio:4/4.55;}
 
-  .social-row{display:flex;gap:12px;}
+  .social-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
   .social-row a{
-    flex:1;aspect-ratio:1/0.62;background:var(--card);border-radius:16px;
+    aspect-ratio:1/0.62;background:var(--card);border-radius:16px;
     display:flex;align-items:center;justify-content:center;color:var(--paper);
     text-decoration:none;transition:transform .18s ease, background .18s ease;
   }
   .social-row a:hover{background:#241f18;transform:translateY(-2px);}
   .social-row svg{width:18px;height:18px;}
+  .social-row .hf-icon{font-size:17px;line-height:1;}
 
   .stat{background:var(--card);color:var(--paper);padding:26px 24px 28px;border-radius:20px;}
   .stat .stars{display:flex;gap:4px;margin-bottom:20px;}
@@ -113,6 +114,23 @@
     font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#c9c3b6;
     border:1px solid rgba(243,239,230,0.22);padding:4px 9px;border-radius:100px;
   }
+
+  /* === DEPLOYMENT BUTTONS ===
+     To resize the 3 project buttons (Zpeak / Diego Imagine / Hans Music):
+     - change the "width" value below (currently 26% of the card's width)
+     - smaller number = smaller buttons, larger number = bigger buttons
+     - "gap" controls the horizontal space between the 3 buttons
+     - "top" controls how far down from the top of the card they sit
+  */
+  .deploy-btns{
+    position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);
+    z-index:3;display:flex;flex-direction:row;align-items:center;justify-content:center;
+    gap:10px;width:82%;
+  }
+  .deploy-btns a{display:block;flex:0 0 26%;transition:transform .22s ease, filter .22s ease;}
+  .deploy-btns a img{width:100%;display:block;}
+  .deploy-btns a:hover{transform:translateY(-3px) scale(1.08);filter:drop-shadow(0 10px 18px rgba(20,19,17,0.22));}
+  .deploy-btns a:active{transform:translateY(-1px) scale(1.02);}
 
   .video-card{aspect-ratio:4/3.55;position:relative;}
   .video-card .play{
@@ -178,26 +196,45 @@
       </div>
 
       <div class="social-row">
-        <a href="#" aria-label="GitHub">
+        <a href="https://github.com/jasonkishore82" target="_blank" rel="noopener" aria-label="GitHub">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
         </a>
-        <a href="#" aria-label="LinkedIn">
+        <a href="https://www.linkedin.com/in/jason-kishore-mohan-raj-43b707361/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.75h3.48V21H3.4V8.75Zm6.02 0h3.34v1.68h.05c.47-.87 1.6-1.79 3.3-1.79 3.53 0 4.18 2.32 4.18 5.34V21h-3.48v-5.42c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21H9.42V8.75Z"/></svg>
         </a>
-        <a href="#" aria-label="Email">
+        <a href="mailto:jasonkishore82@gmail.com" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2 .4v.3l8 5.6 8-5.6v-.3H4Zm16 2.5-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4Z"/></svg>
+        </a>
+        <a href="https://huggingface.co/Jasonkishore007" target="_blank" rel="noopener" aria-label="Hugging Face">
+          <span class="hf-icon">🤗</span>
+        </a>
+        <a href="https://huggingface.co/pitchtheory" target="_blank" rel="noopener" aria-label="Hugging Face — Pitchtheory">
+          <span class="hf-icon">🤗</span>
         </a>
       </div>
 
       <div class="card photo grad-2" style="aspect-ratio:4/4.85;">
-        <span class="badge">Live Project</span>
-        <div class="slot upload" style="top:34%;left:9%;right:14%;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
-          <div>My App<br><span class="fname">hans_music.html</span></div>
+        <span class="badge">Deployment</span>
+        <div class="deploy-btns">
+          <a href="https://jasonkishore82.github.io/Zpeak/" target="_blank" rel="noopener">
+            <img src="Zbtn.png" alt="Zpeak">
+          </a>
+          <a href="https://jasonkishore82.github.io/DiegoImagine/" target="_blank" rel="noopener">
+            <img src="DIbtn.png" alt="Diego Imagine">
+          </a>
+          <a href="https://jasonkishore82.github.io/HansMusic/" target="_blank" rel="noopener">
+            <img src="HMbtn.png" alt="Hans Music">
+          </a>
         </div>
         <div class="caption">
-          <h3>Hans Music</h3>
-          <p>Text‑to‑music app pairing a Hugging Face Gradio Space with a Three.js generative visualizer — single HTML file, no build step.</p>
+          <h3>Deployment</h3>
+            <p>
+             <strong>MutiGen AI web applications: </strong> <br> 
+              <strong>Zpeak</strong> – Neural Text-to-Speech powered by Edge TTS, Kokoro, and Supertonic. <br>
+              <strong>Diego Imagine</strong> – Text-to-Image generation powered by SDTurbo. <br>
+              <strong>Hans Music</strong> – Text-to-Music generation powered by MusicGen. <br> 
+              Frontend hosted on GitHub Pages with AI inference served through Hugging Face Spaces.
+            </p>
         </div>
       </div>
     </div>
