@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Jason Kishore — Portfolio</title>
+<title>Jason Kishore's Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -116,11 +116,11 @@
      - "top" controls how far down from the top of the card they sit
   */
   .deploy-btns{
-    position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);
+    position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);
     z-index:3;display:flex;flex-direction:row;align-items:center;justify-content:center;
-    gap:10px;width:82%;
+    gap:14px;width:88%;
   }
-  .deploy-btns a{display:block;flex:0 0 26%;transition:transform .22s ease, filter .22s ease;}
+  .deploy-btns a{display:block;flex:0 0 30%;transition:transform .22s ease, filter .22s ease;}
   .deploy-btns a img{width:100%;display:block;}
   .deploy-btns a:hover{transform:translateY(-3px) scale(1.08);filter:drop-shadow(0 10px 18px rgba(20,19,17,0.22));}
   .deploy-btns a:active{transform:translateY(-1px) scale(1.02);}
@@ -154,6 +154,43 @@
 
   .star-mark{position:absolute;top:18px;left:18px;z-index:3;color:var(--ink);width:26px;height:26px;opacity:.55;}
 
+  .proj-pills{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .proj-pills span{
+    display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-weight:500;
+    font-size:11.5px;color:var(--ink);background:var(--paper);border:1px solid #e3ddcd;
+    padding:9px 12px;border-radius:10px;cursor:pointer;transition:background .15s ease, transform .15s ease;
+  }
+  .proj-pills span:hover{background:#fff;transform:translateX(2px);}
+
+  /* ===== Project modals ===== */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;z-index:50;
+    background:rgba(20,19,17,0.55);backdrop-filter:blur(3px);
+    align-items:center;justify-content:center;padding:24px;
+  }
+  .modal-overlay.active{display:flex;}
+  .modal-box{
+    background:var(--paper);border-radius:20px;max-width:440px;width:100%;
+    padding:30px 28px 28px;position:relative;box-shadow:0 24px 60px rgba(20,19,17,0.3);
+  }
+  .modal-box .modal-close{
+    position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
+    background:#fff;border:none;cursor:pointer;font-size:16px;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;line-height:1;
+  }
+  .modal-box .modal-tag{
+    display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;
+    text-transform:uppercase;letter-spacing:.06em;color:#6b6558;
+    background:#fff;padding:5px 10px;border-radius:100px;margin-bottom:14px;
+  }
+  .modal-box h3{font-family:'Fraunces',serif;font-weight:500;font-size:26px;margin:0 0 12px;color:var(--ink);}
+  .modal-box p{font-size:14px;line-height:1.6;color:#4a4640;margin:0 0 22px;}
+  .modal-box .modal-link{
+    display:inline-block;background:var(--ink);color:var(--paper);
+    font-size:13.5px;font-weight:600;text-decoration:none;
+    padding:11px 20px;border-radius:100px;
+  }
+
   @media (max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:600px){
     .grid{grid-template-columns:1fr;}
@@ -176,94 +213,101 @@
 
   <div class="grid">
 
-    <!-- Column 1 -->
-    <div class="col">
-      <div class="card plain-photo grad-1" style="position:relative;">
-        <div class="slot" style="top:38%;left:8%;right:12%;">
-          Professional Summary
-          <span class="fname" style="font-style:normal;">
-            AI/ML Engineer with an MSc (Distinction) in Artificial Intelligence and Machine Learning
-            from Queen Mary University of London. Experienced in developing and deploying machine
-            learning, Generative AI, Retrieval-Augmented Generation (RAG), and Agentic AI solutions,
-            with expertise in LLM fine-tuning, prompt engineering, NLP, REST APIs, cloud-native
-            deployment, and containerized AI applications.
-          </span>
+    <!-- Columns 1+2 combined so Deployment can span both -->
+    <div class="duo12" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start;">
+
+      <div class="col">
+        <div class="card plain-photo grad-1" style="position:relative;">
+          <div class="slot" style="top:38%;left:8%;right:12%;">
+            Professional Summary
+            <span class="fname" style="font-style:normal;">
+              AI/ML Engineer with an MSc (Distinction) in Artificial Intelligence and Machine Learning
+              from Queen Mary University of London. Experienced in developing and deploying machine
+              learning, Generative AI, Retrieval-Augmented Generation (RAG), and Agentic AI solutions,
+              with expertise in LLM fine-tuning, prompt engineering, NLP, REST APIs, cloud-native
+              deployment, and containerized AI applications.
+            </span>
+          </div>
         </div>
-      </div>
 
-      <div class="social-row">
-        <a href="https://github.com/jasonkishore82" target="_blank" rel="noopener" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-        </a>
-        <a href="https://www.linkedin.com/in/jason-kishore-mohan-raj-43b707361/" target="_blank" rel="noopener" aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.75h3.48V21H3.4V8.75Zm6.02 0h3.34v1.68h.05c.47-.87 1.6-1.79 3.3-1.79 3.53 0 4.18 2.32 4.18 5.34V21h-3.48v-5.42c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21H9.42V8.75Z"/></svg>
-        </a>
-        <a href="mailto:jasonkishore82@gmail.com" aria-label="Email">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2 .4v.3l8 5.6 8-5.6v-.3H4Zm16 2.5-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4Z"/></svg>
-        </a>
-        <a href="https://huggingface.co/Jasonkishore007" target="_blank" rel="noopener" aria-label="Hugging Face">
-          <span class="hf-icon">🤗</span>
-        </a>
-        <a href="https://huggingface.co/pitchtheory" target="_blank" rel="noopener" aria-label="Hugging Face — Pitchtheory">
-          <span class="hf-icon">🤗</span>
-        </a>
-      </div>
-
-      <div class="card photo grad-2" style="aspect-ratio:4/4.85;">
-        <span class="badge">Deployment</span>
-        <div class="deploy-btns">
-          <a href="https://jasonkishore82.github.io/Zpeak/" target="_blank" rel="noopener">
-            <img src="Zbtn.png" alt="Zpeak">
+        <div class="social-row">
+          <a href="https://github.com/jasonkishore82" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.27 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
           </a>
-          <a href="https://jasonkishore82.github.io/DiegoImagine/" target="_blank" rel="noopener">
-            <img src="DIbtn.png" alt="Diego Imagine">
+          <a href="https://www.linkedin.com/in/jason-kishore-mohan-raj-43b707361/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0ZM3.4 8.75h3.48V21H3.4V8.75Zm6.02 0h3.34v1.68h.05c.47-.87 1.6-1.79 3.3-1.79 3.53 0 4.18 2.32 4.18 5.34V21h-3.48v-5.42c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21H9.42V8.75Z"/></svg>
           </a>
-          <a href="https://jasonkishore82.github.io/HansMusic/" target="_blank" rel="noopener">
-            <img src="HMbtn.png" alt="Hans Music">
+          <a href="mailto:jasonkishore82@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13Zm2 .4v.3l8 5.6 8-5.6v-.3H4Zm16 2.5-7.4 5.2a1 1 0 0 1-1.2 0L4 8.4V18h16V8.4Z"/></svg>
+          </a>
+          <a href="https://huggingface.co/Jasonkishore007" target="_blank" rel="noopener" aria-label="Hugging Face">
+            <span class="hf-icon">🤗</span>
+          </a>
+          <a href="https://huggingface.co/pitchtheory" target="_blank" rel="noopener" aria-label="Hugging Face — Pitchtheory">
+            <span class="hf-icon">🤗</span>
+          </a>
+          <a href="https://jasonkishore82.github.io/DigiRes/" target="_blank" rel="noopener" aria-label="Online Resume">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 16.5h6M9 9.5h2"/></svg>
           </a>
         </div>
-        <div class="caption">
-          <h3>Deployment</h3>
-            <p>
-             <strong>MutiGen AI web applications: </strong> <br> 
-              <strong>Zpeak</strong> – Neural Text-to-Speech powered by Edge TTS, Kokoro, and Supertonic. <br>
-              <strong>Diego Imagine</strong> – Text-to-Image generation powered by SDTurbo. <br>
-              <strong>Hans Music</strong> – Text-to-Music generation powered by MusicGen. <br> 
-              Frontend hosted on GitHub Pages with AI inference served through Hugging Face Spaces.
-            </p>
+      </div>
+
+      <div class="col">
+        <div class="card grad-3" style="aspect-ratio:4/4.3;position:relative;">
+          <img src="PROPIC.jpg" alt="Jason Kishore" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
-      </div>
-    </div>
 
-    <!-- Column 2 -->
-    <div class="col">
-      <div class="card grad-3" style="aspect-ratio:4/4.3;position:relative;">
-        <img src="PROPIC.jpg" alt="Jason Kishore" style="width:100%;height:100%;object-fit:cover;display:block;">
-      </div>
-
-      <div class="card split-card">
-        <div class="body">
-          <h3>AI / ML<br>Engineer</h3>
-          <div class="tags">
-            <span>PyTorch</span><span>TensorFlow</span><span>Docker</span>
-            <span>FastAPI</span><span>MLflow</span><span>OpenCV</span>
+        <div class="card split-card">
+          <div class="body">
+            <h3>AI / ML<br>Engineer</h3>
+            <div class="tags">
+              <span>PyTorch</span><span>TensorFlow</span><span>Docker</span>
+              <span>FastAPI</span><span>MLflow</span><span>OpenCV</span>
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="card photo grad-2" style="grid-column:1/-1;aspect-ratio:8/3;">
+        <span class="badge">Deployment</span>
+        <div class="deploy-btns" style="top:32%;width:60%;gap:22px;">
+          <a href="javascript:void(0)" onclick="openModal('modal-zpeak')">
+            <img src="Zbtn.png" alt="Zpeak">
+          </a>
+          <a href="javascript:void(0)" onclick="openModal('modal-diego')">
+            <img src="DIbtn.png" alt="Diego Imagine">
+          </a>
+          <a href="javascript:void(0)" onclick="openModal('modal-hans')">
+            <img src="HMbtn.png" alt="Hans Music">
+          </a>
+        </div>
+        <div class="caption" style="left:24px;right:24px;bottom:16px;">
+          <h3 style="font-size:19px;">Deployment</h3>
+            <p style="font-size:11.5px;">
+             <strong>MutiGen AI web applications: </strong>
+              <strong>Zpeak</strong> – Neural TTS (Edge TTS, Kokoro, Supertonic) ·
+              <strong>Diego Imagine</strong> – Text-to-Image (SD-Turbo) ·
+              <strong>Hans Music</strong> – Text-to-Music (MusicGen).
+              Frontend on GitHub Pages, inference on Hugging Face Spaces.
+            </p>
+        </div>
+      </div>
+
     </div>
 
     <!-- Column 3 -->
     <div class="col">
       <div class="card video-card grad-4">
-        <div class="play"></div>
-        <div class="label">Agent Roxer<span>Interactive 3D city sim, built in Three.js — single HTML file</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;padding:16px 16px 60px;">
+          <video src="vid.mov" controls playsinline style="width:100%;height:100%;object-fit:cover;display:block;border-radius:14px;"></video>
+        </div>
+        <div class="label" style="z-index:4;">Graduation<span>MSc AI & Machine Learning — Queen Mary University of London</span></div>
       </div>
 
       <div class="card photo grad-5" style="aspect-ratio:4/4.95;">
         <span class="badge">Education</span>
-        <div class="slot upload" style="top:30%;left:10%;right:16%;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
-          <div>Degree<br><span class="fname">certificate.jpg</span></div>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;padding:54px 16px 90px;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="openModal('modal-degree')">
+          <img src="deg.jpg" alt="MSc Certificate" style="width:100%;height:100%;object-fit:contain;border-radius:10px;box-shadow:0 10px 24px rgba(20,19,17,0.14);background:#fff;">
         </div>
         <div class="caption">
           <h3>MSc AI &amp; Machine Learning</h3>
@@ -284,17 +328,98 @@
       </div>
 
       <div class="card plain-photo grad-6" style="position:relative;aspect-ratio:4/4.65;">
-        <svg class="star-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-          <path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/>
-        </svg>
         <div class="slot" style="bottom:12%;left:8%;right:14%;top:auto;">
-          AI/ML Projects
-          <span class="fname">PromptJob · Intelligent RAG Knowledge Assistant</span>
+          Self Initiated Projects
+          <div class="proj-pills">
+            <span onclick="openModal('modal-promptjob')">PromptJob</span>
+            <span onclick="openModal('modal-rag')">Intelligent RAG Knowledge Assistant</span>
+            <span onclick="openModal('modal-multiagent')">Autonomous Multi-Agent AI System</span>
+          </div>
         </div>
       </div>
     </div>
 
   </div>
 </div>
+
+<div class="modal-overlay" id="modal-degree" onclick="if(event.target===this)closeModal('modal-degree')">
+  <div class="modal-box" style="max-width:600px;padding:20px;">
+    <button class="modal-close" onclick="closeModal('modal-degree')">&times;</button>
+    <img src="deg.jpg" alt="MSc Certificate — full view" style="width:100%;height:auto;border-radius:12px;display:block;">
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-promptjob" onclick="if(event.target===this)closeModal('modal-promptjob')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-promptjob')">&times;</button>
+    <span class="modal-tag">LoRA · Fine-Tuning</span>
+    <h3>PromptJob</h3>
+    <p>PromptJob is an AI assistant built by fine-tuning Google's Gemma 3 1B model with LoRA. Instead of answering questions directly, it takes a user's rough prompt and rewrites it into a clearer, more effective version — helping people get noticeably better responses out of other LLMs. The project covers the full fine-tuning pipeline: dataset preparation, LoRA training, and packaging the result with Hugging Face.</p>
+    <a class="modal-link" href="https://huggingface.co/Jasonkishore007" target="_blank" rel="noopener">View on Hugging Face →</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-rag" onclick="if(event.target===this)closeModal('modal-rag')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-rag')">&times;</button>
+    <span class="modal-tag">RAG · LangChain · Docker</span>
+    <h3>Intelligent RAG Knowledge Assistant</h3>
+    <p>An end-to-end Retrieval-Augmented Generation system built with LangChain and Ollama. Documents are chunked and embedded for semantic search, then relevant context is retrieved and passed to the LLM so answers stay grounded in the source material rather than hallucinated. The assistant is exposed through a FastAPI REST API and packaged with Docker for reproducible, containerized deployment.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-multiagent" onclick="if(event.target===this)closeModal('modal-multiagent')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-multiagent')">&times;</button>
+    <span class="modal-tag">CrewAI · Agentic AI</span>
+    <h3>Autonomous Multi-Agent AI System</h3>
+    <p>A collaborative multi-agent workflow built with CrewAI and LangChain, where separate agents take on distinct roles — planning, research, execution, and validation — and coordinate to complete complex tasks with minimal human input. The system demonstrates how breaking a task into specialised agents can produce more reliable outcomes than a single monolithic prompt.</p>
+  </div>
+</div>
+
+<!-- ===== Project Modals ===== -->
+<div class="modal-overlay" id="modal-zpeak" onclick="if(event.target===this)closeModal('modal-zpeak')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-zpeak')">&times;</button>
+    <span class="modal-tag">Neural TTS</span>
+    <h3>Zpeak</h3>
+    <p>Zpeak is a neural text-to-speech web app that turns written text into natural-sounding voice. It combines Edge TTS, Kokoro, and Supertonic models so you can pick between fast, lightweight synthesis or higher-fidelity voices depending on the use case. The frontend runs on GitHub Pages while the actual inference is served through a Hugging Face Space, keeping the app free to host and easy to update.</p>
+    <a class="modal-link" href="https://jasonkishore82.github.io/Zpeak/" target="_blank" rel="noopener">Open Zpeak →</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-diego" onclick="if(event.target===this)closeModal('modal-diego')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-diego')">&times;</button>
+    <span class="modal-tag">Text-to-Image</span>
+    <h3>Diego Imagine</h3>
+    <p>Diego Imagine generates images directly from a text prompt using SD-Turbo, a distilled Stable Diffusion model built for near-instant generation. The goal was to make image generation feel responsive rather than a multi-second wait, so prompts are rendered in just a few steps. Like the other apps, the UI is hosted on GitHub Pages and calls a Hugging Face Space for the actual model inference.</p>
+    <a class="modal-link" href="https://jasonkishore82.github.io/DiegoImagine/" target="_blank" rel="noopener">Open Diego Imagine →</a>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-hans" onclick="if(event.target===this)closeModal('modal-hans')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-hans')">&times;</button>
+    <span class="modal-tag">Text-to-Music</span>
+    <h3>Hans Music</h3>
+    <p>Hans Music turns a short text description into an original piece of music using Meta's MusicGen model. Describe a mood, genre, or instrumentation and the app generates an audio clip that matches the prompt — useful for quick background scoring or just experimenting with generative audio. As with the other tools, the frontend is static and the heavy generation work happens on a Hugging Face Space.</p>
+    <a class="modal-link" href="https://jasonkishore82.github.io/HansMusic/" target="_blank" rel="noopener">Open Hans Music →</a>
+  </div>
+</div>
+
+<script>
+  function openModal(id){
+    document.getElementById(id).classList.add('active');
+  }
+  function closeModal(id){
+    document.getElementById(id).classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      document.querySelectorAll('.modal-overlay.active').forEach(function(m){ m.classList.remove('active'); });
+    }
+  });
+</script>
 </body>
 </html>
